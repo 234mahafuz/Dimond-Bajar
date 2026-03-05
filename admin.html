@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f0f2f5; }
+        .order { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h2 { color: #ff5722; }
+    </style>
+</head>
+<body>
+    <h2>📦 অর্ডার লিস্ট</h2>
+    <div id="list">লোড হচ্ছে...</div>
+    <script>
+        let pass = prompt("Password (admin123):");
+        if(pass === "admin123") {
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            document.getElementById('list').innerHTML = orders.reverse().map(o => `
+                <div class="order">
+                    <b>ID:</b> ${o.uid} <br>
+                    <b>প্যাকেজ:</b> ${o.selectedPkg} <br>
+                    <b>TrxID:</b> ${o.trx} <br>
+                    <small>${o.time}</small>
+                </div>
+            `).join('') || "কোনো অর্ডার নেই।";
+        } else {
+            alert("ভুল পাসওয়ার্ড!");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
