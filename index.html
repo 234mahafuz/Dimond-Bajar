@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Bajar - Fast Topup</title>
+    <style>
+        :root { --primary: #ff5722; --bg: #f4f4f9; }
+        body { font-family: sans-serif; background: var(--bg); margin: 0; padding: 0; }
+        .nav { background: white; padding: 15px; text-align: center; color: var(--primary); font-weight: bold; font-size: 22px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 500px; margin: auto; padding: 15px; }
+        .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .ad { background: linear-gradient(90deg, #ff5722, #ff9800); color: white; padding: 10px; border-radius: 8px; text-align: center; font-size: 14px; margin-bottom: 15px; }
+        .pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .pkg { border: 2px solid #eee; padding: 15px; text-align: center; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .pkg.active { border-color: var(--primary); background: #fff5f2; }
+        .pkg b { display: block; color: var(--primary); font-size: 18px; }
+        .btn-buy { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        .admin-btn { text-align: center; margin-top: 20px; color: #aaa; font-size: 12px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="nav">ডায়মন্ড বাজার</div>
+
+<div class="container" id="userSite">
+    <div class="ad">🔥 ২৪ ঘণ্টা ফুল সাপোর্ট! অন্য সাইট থেকে ৫৳ কম! 🔥</div>
+    
+    <div class="card">
+        <h4 style="margin:0 0 10px 0;">১. প্লেয়ার আইডি (UID)</h4>
+        <input type="number" id="uid" style="width:100%; padding:12px; border:1.5px solid #ddd; border-radius:8px; box-sizing:border-box;" placeholder="আপনার আইডি লিখুন">
+        <p style="color:red; font-size:11px; margin-top:5px;">⚠️ আইডি ভুল হলে কর্তৃপক্ষ দায়ী নয়!</p>
+    </div>
+
+    <div class="card">
+        <h4 style="margin:0 0 10px 0;">২. প্যাকেজ বেছে নিন</h4>
+        <div class="pkg-grid">
+            <div class="pkg" onclick="selectPkg(this, 'Weekly', 150)">Weekly <b>৳১৫০</b></div>
+            <div class="pkg" onclick="selectPkg(this, 'Weekly Lite', 45)">Lite <b>৳৪৫</b></div>
+            <div class="pkg" onclick="selectPkg(this, 'Monthly', 775)">Monthly <b>৳ ৭৭৫</b></div>
+            <div class="pkg" onclick="selectPkg(this, 'LevelUp Pass', 175)">LevelUp <b>৳ ১৭৫</b></div>
+            <div class="pkg" onclick="selectPkg(this, '115 Diamond', 80)">115 Di <b>৳ ৮০</b></div>
+            <div class="pkg" onclick="selectPkg(this, '240 Diamond', 160)">240 Di <b>৳ ১৬০</b></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h4 style="margin:0 0 10px 0;">৩. পেমেন্ট (নগদ: 01343933981)</h4>
+        <p style="font-size:12px; color:#666;">টাকা পাঠিয়ে TrxID দিন। ভুল দিলে রিজেক্ট হবে।</p>
+        <input type="text" id="trx" style="width:100%; padding:12px; border:1.5px solid #ddd; border-radius:8px; box-sizing:border-box;" placeholder="Transaction ID লিখুন">
+    </div>
+
+    <button class="btn-buy" onclick="orderNow()">BUY NOW</button>
+    <div class="admin-btn" onclick="openAdmin()">Admin Panel</div>
+</div>
+
+<div class="container" id="adminSite" style="display:none; background:white; min-height:100vh;">
+    <button onclick="location.reload()" style="padding:10px; margin-bottom:10px;">Back</button>
+    <h2 style="color:var(--primary)">অর্ডার লিস্ট</h2>
+    <div id="orderList">লোড হচ্ছে...</div>
+</div>
+
+<script>
+    let selectedPkg = "";
+    function selectPkg(el, name, price) {
+        document.querySelectorAll('.pkg').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        selectedPkg = name + " (" + price + "tk)";
+    }
+
+    function orderNow() {
+        const uid = document.getElementById('uid').value;
+        const trx = document.getElementById('trx').value;
+        if(!uid || !selectedPkg || !trx) return alert("সব তথ্য দিন!");
+
+        const order = { uid, selectedPkg, trx, time: new Date().toLocaleString() };
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        orders.push(order);
+        localStorage.setItem('orders', JSON.stringify(orders));
+
+        // WhatsApp Notification
+        const msg = `*New Order - Diamond Bajar*\n\nID: ${uid}\nPkg: ${selectedPkg}\nTrx: ${trx}`;
+        window.open(`https://wa.me/8801343933981?text=${encodeURIComponent(msg)}`, '_blank');
+        alert("অর্ডার সফল! ৫ মিনিটে ডায়মন্ড পাবেন।");
+        location.reload();
+    }
+
+    function openAdmin() {
+        const pass = prompt("অ্যাডমিন পাসওয়ার্ড (admin123) দিন:");
+        if(pass === "admin123") {
+            document.getElementById('user
