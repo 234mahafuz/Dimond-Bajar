@@ -3,53 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond Bajar - Fast Topup</title>
+    <title>MAHAFUZ Diamond Bajar</title>
     <style>
         :root { --primary: #ff5722; --bg: #f4f4f9; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 0; }
-        .nav { background: white; padding: 15px; text-align: center; color: var(--primary); font-weight: bold; font-size: 24px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        
+        /* Nav Bar with Logo */
+        .nav { 
+            background: white; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        }
+        .nav img { 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 50%; 
+            border: 2px solid var(--primary); 
+            object-fit: cover;
+        }
+        .nav span { 
+            color: var(--primary); 
+            font-weight: bold; 
+            font-size: 20px; 
+        }
+
         .container { max-width: 500px; margin: auto; padding: 15px; }
         .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        input { width: 100%; padding: 12px; border: 1.5px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        h4 { margin-top: 0; color: #333; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px; }
+        
+        input { width: 100%; padding: 12px; border: 1.5px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; }
+        input:focus { border-color: var(--primary); }
+
         .pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
         .pkg { border: 2px solid #eee; padding: 15px; text-align: center; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        .pkg.active { border-color: var(--primary); background: #fff5f2; }
+        .pkg.active { border-color: var(--primary); background: #fff5f2; transform: scale(1.02); }
         .pkg b { display: block; color: var(--primary); font-size: 18px; }
-        .btn-buy { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .footer { text-align: center; margin-top: 20px; padding-bottom: 20px; }
-        .admin-link { color: #ccc; text-decoration: none; font-size: 12px; }
+
+        .btn-buy { 
+            background: var(--primary); 
+            color: white; 
+            width: 100%; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+        }
+        .footer { text-align: center; margin-top: 20px; padding-bottom: 20px; color: #888; font-size: 14px; }
     </style>
 </head>
 <body>
 
-<div class="nav">💎 ডায়মন্ড বাজার</div>
+<div class="nav">
+    <img src="logo.png" alt="MAHAFUZ Logo">
+    <span>MAHAFUZ Diamond Bajar</span>
+</div>
 
 <div class="container">
     <div class="card">
         <h4>১. প্লেয়ার আইডি (UID)</h4>
-        <input type="number" id="uid" placeholder="আপনার আইডি লিখুন">
+        <input type="number" id="uid" placeholder="আপনার গেম আইডি লিখুন">
     </div>
 
     <div class="card">
         <h4>২. প্যাকেজ বেছে নিন</h4>
         <div class="pkg-grid">
-            <div class="pkg" onclick="selectPkg(this, 'Weekly', 150)">Weekly <b>৳১৫০</b></div>
-            <div class="pkg" onclick="selectPkg(this, 'Monthly', 775)">Monthly <b>৳৭৭৫</b></div>
-            <div class="pkg" onclick="selectPkg(this, '115 Diamond', 80)">115 Di <b>৳৮০</b></div>
-            <div class="pkg" onclick="selectPkg(this, 'LevelUp Pass', 175)">LevelUp <b>৳১৭৫</b></div>
+            <div class="pkg" onclick="selectPkg(this, 'Weekly Membership', 150)">Weekly <b>৳১৫০</b></div>
+            <div class="pkg" onclick="selectPkg(this, 'Monthly Membership', 775)">Monthly <b>৳৭৭৫</b></div>
+            <div class="pkg" onclick="selectPkg(this, '115 Diamond', 85)">115 Di <b>৳৮৫</b></div>
+            <div class="pkg" onclick="selectPkg(this, 'LevelUp Pass', 180)">LevelUp <b>৳১৮০</b></div>
         </div>
     </div>
 
     <div class="card">
-        <h4>৩. পেমেন্ট (নগদ/বিকাশ: 01343933981)</h4>
-        <p style="font-size: 12px; color: #666;">টাকা পাঠিয়ে Transaction ID দিন</p>
-        <input type="text" id="trx" placeholder="Transaction ID লিখুন">
+        <h4>৩. পেমেন্ট (বিকাশ/নগদ: 01343933981)</h4>
+        <p style="font-size: 12px; color: #666; margin-bottom: 8px;">টাকা পাঠিয়ে নিচের বক্সে Transaction ID দিন</p>
+        <input type="text" id="trx" placeholder="Transaction ID দিন">
     </div>
 
-    <button class="btn-buy" onclick="sendOrder()">অর্ডার করুন (Order Now)</button>
+    <button class="btn-buy" onclick="sendOrder()">অর্ডার কনফার্ম করুন (Order Now)</button>
 
     <div class="footer">
-        <a href="admin.html" class="admin-link">Admin Panel</a>
+        © 2026 MAHAFUZ Diamond Bajar - All Rights Reserved
     </div>
 </div>
 
@@ -59,7 +101,7 @@
     function selectPkg(el, name, price) {
         document.querySelectorAll('.pkg').forEach(p => p.classList.remove('active'));
         el.classList.add('active');
-        selectedPkgInfo = name + " - " + price + "tk";
+        selectedPkgInfo = name + " (৳" + price + ")";
     }
 
     function sendOrder() {
@@ -67,24 +109,23 @@
         const trx = document.getElementById('trx').value;
 
         if (!uid || !trx || !selectedPkgInfo) {
-            alert("অনুগ্রহ করে সব তথ্য দিন!");
+            alert("অনুগ্রহ করে সব তথ্য সঠিকভাবে পূরণ করুন!");
             return;
         }
 
-        const order = { uid, selectedPkg: selectedPkgInfo, trx, time: new Date().toLocaleString() };
-        
-        // Local Storage-এ সেভ করা
-        let orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
+        // WhatsApp message format
+        const message = `*--- নতুন অর্ডার (MAHAFUZ Diamond Bajar) ---*\n\n` +
+                        `👤 প্লেয়ার আইডি: ${uid}\n` +
+                        `📦 প্যাকেজ: ${selectedPkgInfo}\n` +
+                        `💳 TrxID: ${trx}\n` +
+                        `⏰ সময়: ${new Date().toLocaleString()}\n\n` +
+                        `_অনুগ্রহ করে দ্রুত ডেলিভারি দিন!_`;
 
-        // WhatsApp-এ পাঠানো
-        const message = `*নতুন অর্ডার (Diamond Bajar)*\n\n🔹 আইডি: ${uid}\n🔹 প্যাকেজ: ${selectedPkgInfo}\n🔹 TrxID: ${trx}\n🔹 সময়: ${order.time}`;
+        // Direct WhatsApp Redirect
         const whatsappUrl = `https://wa.me/8801343933981?text=${encodeURIComponent(message)}`;
-        
         window.location.href = whatsappUrl;
     }
 </script>
 
 </body>
-</html>
+    </html>
