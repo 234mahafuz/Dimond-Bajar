@@ -1,33 +1,179 @@
-<div class="grid">
-    <div class="card" onclick="selectItem(this, 'Weekly Membership', 155)">
-        <img src="https://i.ibb.co/LzN7yS0/weekly.png" alt="Weekly">
-        <div class="card-info">
-            <p>Weekly Membership</p>
-            <b>৳১৫৫</b>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAHAFUZ Diamond Bajar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #e91e63; --secondary: #2196f3; --bg: #f4f7fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; color: #333; }
+        
+        /* Header */
+        .header { background: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .header img { height: 45px; border-radius: 8px; border: 2px solid var(--primary); }
+        .login-btn { background: var(--primary); color: white; border: none; padding: 7px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+
+        /* Banner & Notice */
+        .banner { margin: 10px; height: 160px; background: linear-gradient(45deg, #e91e63, #2196f3); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .banner h2 { font-size: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .notice { background: #fff3cd; border-left: 5px solid #ffc107; margin: 10px; padding: 12px; border-radius: 8px; font-size: 13px; color: #856404; }
+
+        /* Container */
+        .container { padding: 10px; max-width: 600px; margin: auto; }
+        .section-title { font-size: 18px; font-weight: bold; margin: 15px 0; border-left: 4px solid var(--primary); padding-left: 10px; }
+
+        /* Item Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1.5px solid #eee; transition: 0.3s; cursor: pointer; position: relative; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .card img { width: 100%; height: 130px; object-fit: contain; background: #fff; padding: 5px; }
+        .card-info { padding: 10px; text-align: center; background: #fafafa; border-top: 1px solid #eee; }
+        .card-info p { margin: 0; font-size: 13px; font-weight: bold; color: #444; }
+        .card-info b { color: var(--primary); font-size: 15px; display: block; margin-top: 4px; }
+        .card.active { border-color: var(--primary); background: #fff5f8; }
+        
+        /* Forms */
+        .form-box { background: white; padding: 20px; border-radius: 15px; margin-top: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        input { width: 100%; padding: 13px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 15px; outline: none; font-size: 15px; box-sizing: border-box; }
+        .pay-box { background: #fdf2f5; border: 1px dashed var(--primary); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .buy-btn { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+
+        /* Login Page UI */
+        #login-view { display: none; padding: 20px; }
+        .login-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        .google-btn { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #4285F4; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; text-decoration: none; margin-bottom: 20px; cursor: pointer; }
+        .google-btn img { height: 20px; margin-right: 10px; background: white; padding: 2px; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -2px 15px rgba(0,0,0,0.1); z-index: 1000; }
+        .nav-link { text-align: center; color: #777; text-decoration: none; font-size: 11px; flex: 1; cursor: pointer; }
+        .nav-link i { font-size: 22px; display: block; margin-bottom: 3px; }
+        .nav-link.active { color: var(--primary); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="logo.png" alt="MAHAFUZ">
+        <button class="login-btn" onclick="showLogin()">Login</button>
+    </div>
+
+    <div id="home-view">
+        <div class="banner">
+            <h2>💎 মাহাফুজ ডায়মন্ড বাজার<br><span style="font-size: 14px; opacity: 0.9;">সবচেয়ে কম দামে ফাস্ট ডেলিভারি</span></h2>
+        </div>
+
+        <div class="notice">
+            <i class="fas fa-bullhorn"></i> <b>নোটিশ:</b> ইনশাল্লাহ সকল লেনদেন ১০ মিনিটের মধ্যে সম্পন্ন করা হবে। দাম কমানো হয়েছে!
+        </div>
+
+        <div class="container">
+            <div class="section-title">প্যাকেজ বেছে নিন (Free Fire)</div>
+            <div class="grid">
+                <div class="card" onclick="selectItem(this, 'Weekly Membership', 155)">
+                    <img src="https://i.ibb.co/LzN7yS0/weekly.png" alt="Weekly">
+                    <div class="card-info">
+                        <p>Weekly Membership</p>
+                        <b>৳১৫৫</b>
+                    </div>
+                </div>
+
+                <div class="card" onclick="selectItem(this, 'Monthly Membership', 780)">
+                    <img src="https://i.ibb.co/LzN7yS0/monthly.png" alt="Monthly">
+                    <div class="card-info">
+                        <p>Monthly Membership</p>
+                        <b>৳৭৮০</b>
+                    </div>
+                </div>
+
+                <div class="card" onclick="selectItem(this, 'Weekly Lite', 40)">
+                    <img src="https://i.ibb.co/LzN7yS0/weekly-lite.png" alt="Lite">
+                    <div class="card-info">
+                        <p>Weekly Lite [BD]</p>
+                        <b>৳৪০</b>
+                    </div>
+                </div>
+
+                <div class="card" onclick="selectItem(this, 'Level Up Pass', 185)">
+                    <img src="https://i.ibb.co/LzN7yS0/level-up-pass.png" alt="LUP">
+                    <div class="card-info">
+                        <p>Level Up Pass</p>
+                        <b>৳১৮৫</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-box">
+                <h4>১. আপনার তথ্য দিন</h4>
+                <input type="number" id="uid" placeholder="গেম প্লেয়ার আইডি (UID)">
+                <h4>২. পেমেন্ট করুন</h4>
+                <div class="pay-box">
+                    <p style="margin:0; font-size: 13px;">বিকাশ/নগদ (Personal): <b>01343933981</b></p>
+                    <small style="color: #666;">সেন্ড মানি করে TrxID নিচে দিন</small>
+                </div>
+                <input type="text" id="trx" placeholder="Transaction ID (TrxID)">
+                <button class="buy-btn" onclick="order()">অর্ডার কনফার্ম করুন</button>
+            </div>
         </div>
     </div>
 
-    <div class="card" onclick="selectItem(this, 'Monthly Membership', 780)">
-        <img src="https://i.ibb.co/LzN7yS0/monthly.png" alt="Monthly">
-        <div class="card-info">
-            <p>Monthly Membership</p>
-            <b>৳৭৮০</b>
+    <div id="login-view" class="container">
+        <div class="login-card">
+            <h2 style="text-align: left; margin-bottom: 20px;">Login</h2>
+            <div class="google-btn" onclick="alert('Google Login Coming Soon!')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+                Login with Google
+            </div>
+            <div style="margin: 20px 0; color: #888;">OR</div>
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button class="buy-btn" onclick="alert('Login Successful!')">Login</button>
+            <p style="margin-top: 20px; color: var(--primary); cursor: pointer;" onclick="showHome()">ফিরে যান (Back to Home)</p>
         </div>
     </div>
 
-    <div class="card" onclick="selectItem(this, 'Weekly Lite', 40)">
-        <img src="https://i.ibb.co/LzN7yS0/lite.png" alt="Lite">
-        <div class="card-info">
-            <p>Weekly Lite [BD]</p>
-            <b>৳৪০</b>
-        </div>
+    <div class="bottom-nav">
+        <div class="nav-link active" onclick="showHome()"><i class="fas fa-home"></i>Home</div>
+        <a href="https://wa.me/8801343933981" class="nav-link"><i class="fas fa-headset"></i>Support</a>
+        <div class="nav-link" onclick="showLogin()"><i class="fas fa-user-circle"></i>Profile</div>
     </div>
 
-    <div class="card" onclick="selectItem(this, 'Level Up Pass', 185)">
-        <img src="https://i.ibb.co/LzN7yS0/lup.png" alt="LUP">
-        <div class="card-info">
-            <p>Level Up Pass</p>
-            <b>৳১৮৫</b>
-        </div>
-    </div>
-</div>
+    <script>
+        let item = "";
+        
+        function showLogin() {
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('login-view').style.display = 'block';
+            updateNav(2);
+        }
+
+        function showHome() {
+            document.getElementById('login-view').style.display = 'none';
+            document.getElementById('home-view').style.display = 'block';
+            updateNav(0);
+        }
+
+        function updateNav(index) {
+            document.querySelectorAll('.nav-link').forEach((l, i) => {
+                if(i === index) l.classList.add('active');
+                else l.classList.remove('active');
+            });
+        }
+
+        function selectItem(el, name, price) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            item = name + " (৳" + price + ")";
+        }
+
+        function order() {
+            const uid = document.getElementById('uid').value;
+            const trx = document.getElementById('trx').value;
+            if(!item || !uid || !trx) { alert("সবগুলো তথ্য সঠিকভাবে দিন!"); return; }
+            const msg = `*--- নতুন অর্ডার (MAHAFUZ) ---*\n📦 প্যাকেজ: ${item}\n👤 ইউআইডি: ${uid}\n💳 TrxID: ${trx}`;
+            window.location.href = `https://wa.me/8801343933981?text=${encodeURIComponent(msg)}`;
+        }
+    </script>
+</body>
+                </html>
